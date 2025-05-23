@@ -1,0 +1,107 @@
+/* src/app/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* --- Light Theme Variables --- */
+    /* Backgrounds and Core Text */
+    --background: 0 0% 100%;                     /* White */
+    --foreground: 220 71.4% 4.1%;               /* Dark Text (#030712) */
+
+    --card: 0 0% 100%;                           /* White */
+    --card-foreground: 220 71.4% 4.1%;           /* Dark Text (#030712) */
+
+    --popover: 0 0% 100%;                        /* White */
+    --popover-foreground: 220 71.4% 4.1%;        /* Dark Text (#030712) */
+
+    /* Primary Color (Main Theme Color - Brand Pink) */
+    --primary: 339 93% 57%;                      /* PINK #F92D77 */
+    --primary-foreground: 210 40% 97.1%;         /* Light Text (#F8FAFC) on pink */
+
+    /* Accent Color (Also Pink, as it's our main theme driver) */
+    --accent: 339 93% 57%;                      /* PINK #F92D77 */
+    --accent-foreground: 210 40% 97.1%;         /* Light Text (#F8FAFC) on pink */
+
+    /* Secondary & Muted (Neutral Grays) */
+    --secondary: 240 4.8% 95.9%;               /* Light Gray (e.g., Tailwind zinc-100) */
+    --secondary-foreground: 240 5.9% 10%;     /* Darker Gray Text (e.g., Tailwind zinc-900) on light gray bg */
+
+    --muted: 240 4.8% 95.9%;                   /* Light Gray */
+    --muted-foreground: 240 3.8% 46.1%;        /* Mid Gray text (e.g., Tailwind zinc-500) */
+
+    /* Destructive (Kept from your original file) */
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 97.1%;   /* Light Text (#F8FAFC) on destructive color */
+
+    /* Border, Input, Ring */
+    --border: 240 5.9% 90%;                      /* Light Gray border (e.g., Tailwind zinc-200) */
+    --input: 240 5.9% 90%;                       /* Light Gray input background */
+    --ring: 339 93% 57%;                        /* PINK #F92D77 for focus rings */
+
+    /* Chart colors - KEPT FROM YOUR ORIGINAL FILE */
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+
+    /* Radius - KEPT FROM YOUR ORIGINAL FILE */
+    --radius: 0.5rem; /* Your original value */
+  }
+
+  .dark {
+    /* --- Dark Theme Variables --- */
+    /* Backgrounds and Core Text */
+    --background: 220 71.4% 4.1%;               /* Dark Text (#030712) used as dark background */
+    --foreground: 210 40% 97.1%;                /* Light Text (#F8FAFC) */
+
+    --card: 220 71.4% 4.1%;                      /* Dark background for card */
+    --card-foreground: 210 40% 97.1%;            /* Light Text (#F8FAFC) */
+
+    --popover: 220 71.4% 4.1%;                   /* Dark background for popover */
+    --popover-foreground: 210 40% 97.1%;         /* Light Text (#F8FAFC) */
+
+    /* Primary Color (Main Theme Color - Brand Pink) */
+    --primary: 339 93% 57%;                      /* PINK #F92D77 */
+    --primary-foreground: 210 40% 97.1%;         /* Light Text (#F8FAFC) on pink */
+
+    /* Accent Color (Also Pink) */
+    --accent: 339 93% 57%;                      /* PINK #F92D77 */
+    --accent-foreground: 210 40% 97.1%;         /* Light Text (#F8FAFC) on pink */
+
+    /* Secondary & Muted (Dark Grays) */
+    --secondary: 240 3.7% 15.9%;               /* Dark Gray (e.g., Tailwind zinc-800) */
+    --secondary-foreground: 210 40% 97.1%;      /* Light Text (#F8FAFC) on dark gray bg */
+
+    --muted: 240 3.7% 15.9%;                   /* Dark Gray */
+    --muted-foreground: 240 5% 64.9%;           /* Mid-Light Gray text (e.g., Tailwind zinc-400) */
+
+    /* Destructive (Kept from your original file, dark mode version) */
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 97.1%;   /* Light Text (#F8FAFC) on destructive color */
+
+    /* Border, Input, Ring */
+    --border: 240 3.7% 15.9%;                  /* Dark Gray border */
+    --input: 240 3.7% 15.9%;                   /* Dark Gray input background */
+    --ring: 339 93% 57%;                        /* PINK #F92D77 for focus rings */
+    
+    /* Chart colors - KEPT FROM YOUR ORIGINAL FILE (Dark mode versions) */
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    /* Ensure fonts are applied smoothly; already handled by next/font and antialiased in layout.js */
+  }
+}

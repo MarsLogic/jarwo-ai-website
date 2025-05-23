@@ -1,0 +1,94 @@
+/* src/app/custom-phone-input.css */
+/* Attempt to style react-phone-number-input like Shadcn UI */
+
+/* Container for the whole phone input */
+.PhoneInput {
+    display: flex;
+    align-items: center;
+    /* Try to mimic Shadcn input group appearance if possible */
+  }
+  
+  /* Country Select part */
+  .PhoneInputCountry {
+    position: relative; /* Needed for dropdown positioning */
+    margin-right: 0.5em; /* Adjust spacing */
+  }
+  
+  .PhoneInputCountrySelect {
+    /* These are hard to style like Shadcn select without replacing the component */
+    /* Basic styling to make it less jarring */
+    padding: 0.5rem 0.75rem;
+    border: 1px solid hsl(var(--input)); /* Use Shadcn input border */
+    border-radius: var(--radius);
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-size: 0.875rem; /* text-sm */
+    height: 2.5rem; /* h-10 */
+    /* Remove default browser appearance */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  
+  .PhoneInputCountrySelectArrow {
+    /* Style the arrow or hide it if you use a custom one */
+  }
+  
+  .PhoneInputCountryIcon {
+    /* Style the flag icon container */
+    width: 1.5em; /* Adjust */
+    height: 1em; /* Adjust */
+    box-shadow: none; /* Override default shadow if any */
+    border: 1px solid hsl(var(--border)); /* Subtle border around flag */
+  }
+  
+  .PhoneInputCountryIcon--border {
+      /* Remove default border if you add your own */
+      box-shadow: none !important; 
+  }
+  
+  
+  /* The actual number input field */
+  .PhoneInputInput {
+    /* Apply Shadcn input styles */
+    flex-grow: 1;
+    height: 2.5rem; /* h-10 */
+    padding: 0.5rem 0.75rem; /* px-3 py-2 */
+    font-size: 0.875rem; /* text-sm */
+    line-height: 1.25rem; /* leading-5 */
+    
+    color: hsl(var(--foreground));
+    background-color: hsl(var(--background));
+    border: 1px solid hsl(var(--input));
+    border-radius: var(--radius);
+    
+    box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05); /* shadow-sm (optional) */
+  
+    /* Remove default browser appearance */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  
+  .PhoneInputInput:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    border-color: hsl(var(--ring)); /* Focus ring color */
+    box-shadow: 0 0 0 2px hsl(var(--ring)); /* Focus ring effect */
+  }
+  
+  /* Dark mode considerations - these might be inherited if your CSS vars are set up correctly */
+  .dark .PhoneInputCountrySelect {
+    border: 1px solid hsl(var(--input));
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+  .dark .PhoneInputInput {
+    color: hsl(var(--foreground));
+    background-color: hsl(var(--background));
+    border: 1px solid hsl(var(--input));
+  }
+  .dark .PhoneInputInput:focus {
+    border-color: hsl(var(--ring));
+    box-shadow: 0 0 0 2px hsl(var(--ring));
+  }
