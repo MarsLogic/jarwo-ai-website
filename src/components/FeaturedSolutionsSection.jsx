@@ -1,19 +1,19 @@
 // src/components/FeaturedSolutionsSection.jsx
-"use client"; // Add if you use client-side hooks/interactivity, but usually can be a server component if SolutionCard is client
+"use client"; 
 
-import { SolutionCard } from './SolutionCard'; // CORRECT: Named import for a named export
+import { SolutionCard } from './SolutionCard'; 
 
 const solutionsData = [
   {
     id: 1,
-    iconName: "ServerCog", // Using more specific icons
+    iconName: "ServerCog", 
     title: "Self-Hosted AI Platforms",
     descriptionPoints: [
       { text: "Total data sovereignty and control.", iconName: "Lock" },
-      { text: "Customizable to your infrastructure.", iconName: "Server" }, // Changed from ServerCog as it's the main icon
+      { text: "Customizable to your infrastructure.", iconName: "Server" }, 
       { text: "Scalable for enterprise demands.", iconName: "TrendingUp" },
     ],
-    learnMoreLink: "/solutions/self-hosted-ai", // Ensure this matches sitemap
+    learnMoreLink: "/solutions/self-hosted-ai", 
     tags: ["Control", "Security", "Enterprise"],
   },
   {
@@ -23,7 +23,7 @@ const solutionsData = [
     descriptionPoints: [
       { text: "Rapid deployment, immediate value.", iconName: "Rocket" },
       { text: "Pre-trained models for common tasks.", iconName: "BrainCircuit" },
-      { text: "User-friendly interfaces.", iconName: "MousePointerSquare" },
+      { text: "User-friendly interfaces.", iconName: "MousePointerSquareDashed" },
     ],
     learnMoreLink: "/solutions/ready-to-use",
     tags: ["Speed", "Efficiency", "SaaS"],
@@ -34,19 +34,19 @@ const solutionsData = [
     title: "Custom AI Development",
     descriptionPoints: [
       { text: "Solutions tailored to unique needs.", iconName: "Pipette" },
-      { text: "Expert AI/ML engineering.", iconName: "Users" },
+      { text: "Expert AI/ML engineering.", iconName: "BrainCog" }, // <-- UPDATED ICON
       { text: "Seamless integration with systems.", iconName: "Waypoints" },
     ],
-    learnMoreLink: "/solutions/custom-development",
+    learnMoreLink: "/solutions/custom-ai-dev", // <-- UPDATED LINK for consistency
     tags: ["Bespoke", "Innovation", "Integration"],
   },
   {
-    id: 4, // Added an ID for consistency
+    id: 4, 
     iconName: "Network",
     title: "AI System Integration",
     descriptionPoints: [
       { text: "Connect AI into existing workflows.", iconName: "Link" },
-      { text: "Enhance legacy systems with AI.", iconName: "Replace" },
+      { text: "Enhance legacy systems with AI.", iconName: "Sparkles" }, // <-- UPDATED ICON
       { text: "Optimize data flow and operations.", iconName: "DatabaseZap" },
     ],
     learnMoreLink: "/solutions/system-integration",
@@ -73,7 +73,7 @@ export function FeaturedSolutionsSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {solutionsData.map((solution) => (
             <SolutionCard
-              key={solution.id} // Using id for key is better if title can change or not unique
+              key={solution.id} 
               iconName={solution.iconName}
               title={solution.title}
               descriptionPoints={solution.descriptionPoints}

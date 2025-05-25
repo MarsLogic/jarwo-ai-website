@@ -128,7 +128,6 @@ export default function ContactForm() {
         />
         {errors.fullName && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.fullName.message}</p>}
       </div>
-
       {/* Business Email */}
       <div>
         <Label htmlFor="businessEmail" className="block text-sm font-medium text-foreground">
@@ -168,7 +167,6 @@ export default function ContactForm() {
           </p>
         )}
       </div>
-
       {/* PHONE NUMBER FIELD */}
       <div>
         <Label htmlFor="phone-input" className="block text-sm font-medium text-foreground">
@@ -193,7 +191,6 @@ export default function ContactForm() {
             </p>
         )}
       </div>
-      
       {/* Communication Preference */}
       <div>
         <Label htmlFor="communicationPreference" className="block text-sm font-medium text-foreground">
@@ -227,7 +224,6 @@ export default function ContactForm() {
             </p>
         )}
       </div>
-
       {/* Company Name */}
       <div>
         <Label htmlFor="companyName" className="block text-sm font-medium text-foreground">
@@ -249,7 +245,6 @@ export default function ContactForm() {
         />
         {errors.companyName && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.companyName.message}</p>}
       </div>
-
       {/* Company Website */}
       <div>
         <Label htmlFor="companyWebsite" className="block text-sm font-medium text-foreground">Company Website</Label>
@@ -291,7 +286,6 @@ export default function ContactForm() {
         />
         {errors.companyWebsite && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.companyWebsite.message}</p>}
       </div>
-
       {/* --- FAKE CAPTCHA PLACEHOLDER --- */}
       <div className="flex items-center space-x-3 p-3 border border-input rounded-md bg-muted/50 dark:bg-muted/30">
         <Checkbox 
@@ -309,8 +303,6 @@ export default function ContactForm() {
         </div>
       </div>
       {/* --- END OF FAKE CAPTCHA --- */}
-
-
       <div><Button type="submit" className="w-full sm:w-auto">Submit</Button></div>
       {serverError && (<p className={`mt-2 text-sm font-medium ${theme === 'dark' ? 'text-red-400' : 'text-red-400'}`}>{serverError}</p>)}
       {isSubmitted && (<p className={`mt-2 text-sm font-medium ${theme === 'dark' ? 'text-green-400' : 'text-green-500'}`}>Thank you! Your message has been sent successfully.</p>)}

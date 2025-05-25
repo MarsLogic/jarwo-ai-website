@@ -4,16 +4,18 @@
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Quote, Star } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion"; // Import useAnimation
 import { cn } from "@/lib/utils";
+import { useInView } from "react-intersection-observer"; // Import useInView
+import React, { useEffect } from "react"; // Import useEffect
 
 export function TestimonialCard({
   quote,
   author,
   title,
   company,
-  imageSrc,         // e.g., "/images/avatars/evelyn-reed.jpg" or "" or null
-  companyLogoSrc,   // e.g., "/images/logos/quantumleap-logo.svg" or "" or null
+  imageSrc,
+  companyLogoSrc,
   rating = 5,
 }) {
   const authorInitials = author
@@ -22,15 +24,46 @@ export function TestimonialCard({
         .map((n) => n[0])
         .join("")
         .toUpperCase()
-    : "??"; // Fallback if author name is missing
+    : "??";
+
+  // Controls for the main card animation
+  const cardControls = useAnimation();
+  // Controls for the star container animation
+  const starContainerControls = useAnimation();
+
+  const { ref, inView } = useInView({
+    triggerOnce: false, // <<< KEY CHANGE: Allow re-triggering
+    threshold: 0.3,    // Adjust threshold as needed (e.g., 30% of card visible)
+  });
+
+  useEffect(() => {
+    if (inView) {
+      // console.log(`Card for ${author} IN VIEW, animating to visible`);
+      cardControls.start("visible");
+      starContainerControls.start("visible"); // Trigger star container animation
+    } else {
+      // console.log(`Card for ${author} OUT OF VIEW, animating to hidden`);
+      cardControls.start("hidden");
+      starContainerControls.start("hidden"); // Reset star container animation
+    }
+  }, [inView, cardControls, starContainerControls]);
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.5 } 
+    },
+  };
 
   const starContainerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.3,
+        staggerChildren: 0.08, // Slightly faster stagger
+        delayChildren: 0.2,   // Slightly faster delay
       },
     },
   };
@@ -40,30 +73,31 @@ export function TestimonialCard({
     visible: {
       scale: 1,
       opacity: 1,
-      transition: { type: "spring", stiffness: 400, damping: 17 },
+      transition: { type: "spring", stiffness: 300, damping: 15 }, // Adjusted spring
     },
   };
 
-  // Determine if a valid imageSrc is provided
   const hasValidImageSrc = imageSrc && typeof imageSrc === 'string' && imageSrc.trim() !== '';
   const hasValidCompanyLogoSrc = companyLogoSrc && typeof companyLogoSrc === 'string' && companyLogoSrc.trim() !== '';
 
-
   return (
     <motion.div
+      ref={ref} // Attach ref for intersection observer
       className="h-full"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      variants={cardVariants} // Use variants for the card itself
+      initial="hidden"        // Initial state
+      animate={cardControls}  // Control animation with useAnimation
     >
       <Card className="h-full flex flex-col bg-card text-card-foreground border border-border shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-lg overflow-hidden">
-        <CardHeader className="pb-4 px-5 pt-5"> {/* Added consistent padding */}
-          <motion.div
+        <CardHeader className="pb-4 px-5 pt-5">
+          <motion.div // This div will control the staggering of stars
             className="flex items-center space-x-1"
             variants={starContainerVariants}
+            initial="hidden" // Ensure stars also start hidden
+            animate={starContainerControls} // Control with its own animation controls
           >
             {Array.from({ length: 5 }).map((_, i) => (
-              <motion.div key={i} variants={starVariants}>
+              <motion.div key={i} variants={starVariants}> {/* Individual stars use starVariants */}
                 <Star
                   className={cn(
                     "w-5 h-5",
@@ -86,11 +120,11 @@ export function TestimonialCard({
         </CardContent>
         <CardFooter className="mt-auto pt-4 pb-5 px-5 border-t border-border/50">
           <div className="flex items-center space-x-3 w-full">
-            <Avatar className="h-10 w-10 sm:h-11 sm:w-11 flex-shrink-0"> {/* Added flex-shrink-0 */}
+            <Avatar className="h-10 w-10 sm:h-11 sm:w-11 flex-shrink-0">
               {hasValidImageSrc ? (
                 <AvatarImage src={imageSrc} alt={author} className="object-cover" />
               ) : (
-                <AvatarFallback className="bg-brand-pink/20 text-brand-pink dark:bg-brand-pink/30 dark:text-brand-pink text-sm font-medium"> {/* Added font-medium */}
+                <AvatarFallback className="bg-brand-pink/20 text-brand-pink dark:bg-brand-pink/30 dark:text-brand-pink text-sm font-medium">
                   {authorInitials}
                 </AvatarFallback>
               )}

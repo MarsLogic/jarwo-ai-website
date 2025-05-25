@@ -5,35 +5,58 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { motion } from 'framer-motion';
-import * as LucideIcons from 'lucide-react'; // CORRECTED THIS LINE
+import * as LucideIcons from 'lucide-react';
+// ----- CORRECT THE EXPLICIT IMPORT -----
+import { MousePointerSquareDashed as MousePointerSquareDashedIconDirect } from 'lucide-react'; // Try importing the suggested name
+// ----- END OF CORRECTED IMPORT -----
 import { cn } from "@/lib/utils";
 
+// console.log("SolutionCard.jsx: All LucideIcons available at module load (via * as LucideIcons):", LucideIcons);
+// console.log("SolutionCard.jsx: Directly imported MousePointerSquareDashedIconDirect:", MousePointerSquareDashedIconDirect); // Check this import
+
 const getIcon = (iconName) => {
+  // console.log(`SolutionCard.jsx: getIcon called with iconName: "${iconName}"`);
+
+  // ----- MODIFIED LOGIC TO PRIORITIZE DIRECT IMPORT FOR THE DASHED ICON -----
+  if (iconName === 'MousePointerSquareDashed') { // Check for the dashed name now
+    console.log('SolutionCard.jsx: getIcon - Processing specifically for "MousePointerSquareDashed".');
+    if (MousePointerSquareDashedIconDirect) {
+      console.log('SolutionCard.jsx: getIcon - Using DIRECTLY IMPORTED MousePointerSquareDashedIconDirect.');
+      return MousePointerSquareDashedIconDirect;
+    } else {
+      console.warn('SolutionCard.jsx: getIcon - Directly imported MousePointerSquareDashedIconDirect is undefined. Falling back to dynamic lookup.');
+    }
+  }
+  // ----- END OF MODIFIED LOGIC -----
+
   if (!iconName || typeof iconName !== 'string') {
+    console.warn(`SolutionCard.jsx: getIcon - iconName is invalid. Defaulting to Minus.`);
     return LucideIcons.Minus;
   }
   const IconComponent = LucideIcons[iconName];
   if (!IconComponent) {
-    console.warn(`Lucide icon "${iconName}" not found. Defaulting to Minus.`);
+    console.warn(`SolutionCard.jsx: getIcon - Lucide icon "${iconName}" not found dynamically. Defaulting to Minus.`);
     return LucideIcons.Minus;
   }
+  console.log(`SolutionCard.jsx: getIcon - Successfully found component for "${iconName}" via dynamic lookup.`);
   return IconComponent;
 };
 
-// CHANGED TO A NAMED EXPORT
+// ... (Rest of the SolutionCard component remains the same as your last full version)
 export function SolutionCard({
-  iconName,
+  iconName: mainCardIconName,
   title,
   descriptionPoints,
-  learnMoreLink, // This prop holds the original URL
-  iconColor = "text-brand-pink", // Default color for the main icon
-  tags // Added tags prop
+  learnMoreLink,
+  iconColor = "text-brand-pink",
+  tags
 }) {
-  const MainIconComponent = getIcon(iconName);
+  console.log(`SolutionCard.jsx: Rendering card with title: "${title}", main card iconName: "${mainCardIconName}"`);
+  const MainIconComponent = getIcon(mainCardIconName);
 
   return (
     <motion.div
-      className="h-full flex" // Ensures motion.div takes full height if parent is flex
+      className="h-full flex"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -59,18 +82,26 @@ export function SolutionCard({
             <ul className="space-y-2.5 font-inter text-xs sm:text-sm text-muted-foreground">
               {descriptionPoints.map((point, index) => {
                 let pointText = '';
-                let pointIconName = 'ChevronRight'; // Default icon
+                let pointIconName = 'ChevronRight'; 
 
                 if (typeof point === 'string') {
                   pointText = point;
+                  // console.log(`SolutionCard.jsx: Description point for card "${title}" at index ${index} is a STRING: "${pointText}". Using default icon "${pointIconName}".`);
                 } else if (typeof point === 'object' && point !== null && point.text) {
                   pointText = point.text;
                   pointIconName = point.iconName || 'ChevronRight';
+                  // console.log(`SolutionCard.jsx: Description point for card "${title}", item "${pointText}" (index ${index}): received pointIconName "${point.iconName}", will attempt to use "${pointIconName}".`);
                 } else {
-                  return null; // Skip invalid point structures
+                  // console.warn(`SolutionCard.jsx: Invalid description point structure for card "${title}" at index ${index}:`, point, `. Skipping.`);
+                  return null; 
+                }
+                
+                if (title === "Ready-to-Use AI Applications" && pointText.includes("User-friendly interfaces")) {
+                  // console.log(`SolutionCard.jsx: >>> DEBUGGING ITEM <<< Card: "${title}", Text: "${pointText}", Attempting to use pointIconName: "${pointIconName}" (this should now be "MousePointerSquareDashed")`);
                 }
 
                 const PointIconComponent = getIcon(pointIconName);
+
                 return (
                   <li key={index} className="flex items-start">
                     <PointIconComponent
@@ -91,7 +122,6 @@ export function SolutionCard({
             </p>
           )}
         </CardContent>
-        {/* Optional Tags Section */}
         {tags && tags.length > 0 && (
           <div className="px-5 pt-1 pb-3 flex flex-wrap gap-2 justify-center">
             {tags.map((tag, index) => (
@@ -104,15 +134,14 @@ export function SolutionCard({
             ))}
           </div>
         )}
-        <CardFooter className="justify-center pb-5 pt-3 mt-auto"> {/* Added mt-auto to push footer down */}
+        <CardFooter className="justify-center pb-5 pt-3 mt-auto">
           <Button
             variant="link"
             asChild
             className="font-inter text-sm text-brand-pink hover:text-brand-pink/80 hover:underline px-1 h-auto py-1"
           >
             <Link 
-              href="#"
-              data-original-href={learnMoreLink || "#"}
+              href={learnMoreLink || "#"}
             >
               Learn More →
             </Link>

@@ -84,7 +84,7 @@ export function ImpactStatsSection() {
                       />
                     ) : (
                       // When not in view, show '0' to indicate it will reset
-                      '0'
+                      ("0")
                     )}
                     {stat.suffix}
                   </CardTitle>

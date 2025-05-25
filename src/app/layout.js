@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
     // It's good practice to have scroll-smooth on the html tag if you want smooth scrolling for anchors and window.scrollTo
     // You already had this in your globals.css or earlier layout.js, so this is just a reminder.
     // If not, you can add className="scroll-smooth" to the <html> tag or ensure html { @apply scroll-smooth; } is in globals.css
-    <html lang="en" suppressHydrationWarning className="scroll-smooth"> 
+    <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <body 
         className={cn(
           "flex flex-col min-h-screen bg-background font-inter antialiased",

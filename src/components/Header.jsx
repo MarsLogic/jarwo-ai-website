@@ -4,15 +4,15 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import ThemeToggle from './ThemeToggle';
-import { Button } from '@/components/ui/button';
+import ThemeToggle from './ThemeToggle'; // <<<< CORRECTED: Look in the same directory
+import { Button } from '@/components/ui/button'; // Assuming this alias is still correct for your shadcn button
 import { Menu } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu"; // Assuming this alias is still correct
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -21,47 +21,102 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
-import { cn } from "@/lib/utils";
+} from "@/components/ui/navigation-menu"; // Assuming this alias is still correct
+import { cn } from "@/lib/utils"; // Assuming this alias is still correct
 
-// Data for Navigation Menus
+// --- DATA DEFINITIONS FOR NAVIGATION ---
 const solutionsMenuItems = [
-  { title: "Self-Hosted AI", href: "/solutions/self-hosted-ai", description: "Deploy powerful AI on your own infrastructure." },
-  { title: "Ready-to-Use Solutions", href: "/solutions/ready-to-use", description: "Integrate pre-built AI tools quickly." },
-  { title: "Custom AI Development", href: "/solutions/custom-ai", description: "Tailor-made AI for your unique challenges." },
-  { title: "System Integration", href: "/solutions/system-integration", description: "Seamlessly connect AI with your existing systems." },
-  { title: "AI Chatbots", href: "/solutions/ready-to-use/chatbots", description: "Engage customers with intelligent chatbots." },
-  { title: "Automation Workflows", href: "/solutions/ready-to-use/automation-workflows", description: "Streamline processes with AI automation." },
+  {
+    title: "Self-Hosted AI Solutions",
+    href: "/solutions/self-hosted-ai",
+    description: "Deploy powerful AI models within your own infrastructure for maximum control and security.",
+  },
+  {
+    title: "Ready-to-Use AI Products",
+    href: "/solutions/ready-to-use",
+    description: "Integrate off-the-shelf AI tools to accelerate your workflows and gain immediate benefits.",
+  },
+  {
+    title: "Custom AI Development",
+    href: "/solutions/custom-ai-dev",
+    description: "Bespoke AI solutions, from ideation to deployment, tailored to your unique business challenges.",
+  },
+  {
+    title: "AI System Integration",
+    href: "/solutions/system-integration",
+    description: "Seamlessly connect AI capabilities with your existing enterprise systems for enhanced efficiency.",
+  },
 ];
 
 const insightsMenuItems = [
-  { title: "Our Insights", href: "/resources", description: "Read our latest articles, analysis, and expert perspectives on AI." },
-  { title: "Case Studies", href: "/success-stories", description: "See how we've helped businesses achieve results with AI." },
-  { title: "Testimonials", href: "/success-stories/testimonials", description: "What our clients are saying about Jarwo.ai." },
-  { title: "FAQs", href: "/resources/faqs", description: "Find answers to common questions about Jarwo.ai and our services." },
+  {
+    title: "Our Insights Hub",
+    href: "/resources",
+    description: "Latest articles, trends, and AI knowledge from Jarwo.ai experts.",
+  },
+  {
+    title: "Case Studies",
+    href: "/success-stories",
+    description: "Discover how we've helped clients achieve their goals with AI.",
+  },
+  {
+    title: "Client Testimonials",
+    href: "/success-stories/testimonials",
+    description: "Hear what our satisfied clients have to say about Jarwo.ai.",
+  },
+  {
+    title: "FAQs",
+    href: "/resources/faqs",
+    description: "Find answers to frequently asked questions about our AI solutions.",
+  },
 ];
 
 const aboutUsMenuItems = [
-  { title: "Our Company", href: "/about-us", description: "Learn about our mission, vision, and the team behind Jarwo.ai." },
-  { title: "Careers", href: "/about-us/careers", description: "Join our team and help shape the future of AI." },
-  { title: "Contact Us", href: "/contact", description: "Get in touch with the Jarwo.ai team." }
+  {
+    title: "Our Company",
+    href: "/about-us",
+    description: "Learn about Jarwo.ai's mission, vision, and the team behind our success.",
+  },
+  {
+    title: "Careers",
+    href: "/about-us/careers",
+    description: "Join our innovative team and shape the future of AI.",
+  },
+  {
+    title: "Contact Us",
+    href: "/contact",
+    description: "Get in touch with us for inquiries, support, or to start your AI project.",
+  },
 ];
 
 const navItems = [
-  { label: 'Home', href: '/' },
-  { label: 'Solutions', menuItems: solutionsMenuItems },
-  { label: 'Insights', menuItems: insightsMenuItems },
-  { label: 'About Us', menuItems: aboutUsMenuItems },
+  {
+    label: "Home",
+    href: "/",
+  },
+  {
+    label: "Solutions",
+    menuItems: solutionsMenuItems,
+  },
+  {
+    label: "Insights",
+    menuItems: insightsMenuItems,
+  },
+  {
+    label: "About Us",
+    menuItems: aboutUsMenuItems,
+  },
 ];
+// --- END OF DATA DEFINITIONS ---
+
 
 // ListItem component for Mega Menus
-const ListItem = React.forwardRef(({ className, title, children, href: originalHref, ...props }, ref) => {
+const ListItem = React.forwardRef(({ className, title, children, href, ...props }, ref) => {
   return (
     <li>
       <NavigationMenuLink asChild>
         <Link
-          href="#"
-          data-original-href={originalHref || "#"}
+          href={href || "#"}
           ref={ref}
           className={cn(
             "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors",
@@ -108,21 +163,17 @@ export default function Header() {
                 {navItem.href ? (
                   <Link
                     href={navItem.href}
-                    legacyBehavior passHref
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      "font-inter text-sm",
+                      "bg-transparent text-foreground",
+                      "hover:!bg-transparent hover:text-brand-pink",
+                      "focus:!bg-transparent focus:text-brand-pink",
+                      "dark:text-foreground",
+                      "dark:hover:text-brand-pink dark:focus:text-brand-pink"
+                    )}
                   >
-                    <NavigationMenuLink
-                      className={cn(
-                        navigationMenuTriggerStyle(),
-                        "font-inter text-sm",
-                        "bg-transparent text-foreground",
-                        "hover:!bg-transparent hover:text-brand-pink",
-                        "focus:!bg-transparent focus:text-brand-pink",
-                        "dark:text-foreground",
-                        "dark:hover:text-brand-pink dark:focus:text-brand-pink"
-                      )}
-                    >
-                      {navItem.label}
-                    </NavigationMenuLink>
+                    {navItem.label}
                   </Link>
                 ) : (
                   <>
@@ -147,7 +198,7 @@ export default function Header() {
                           ? "w-[400px] md:w-[500px] md:grid-cols-2 lg:w-[600px]"
                           : "w-[300px] md:w-[350px] lg:w-[400px]"
                       )}>
-                          {navItem.menuItems.map((item) => (
+                          {navItem.menuItems && navItem.menuItems.map((item) => (
                             <ListItem
                               key={item.title}
                               title={item.title}
@@ -166,18 +217,21 @@ export default function Header() {
                 )}
               </NavigationMenuItem>
             ))}
+            <NavigationMenuItem className="ml-2">
+                <Button asChild
+                    variant="cta"
+                    className="bg-brand-light text-brand-dark-text hover:bg-brand-pink hover:text-brand-light-text dark:bg-brand-light dark:text-brand-dark-text dark:hover:bg-brand-pink dark:hover:text-brand-light-text"
+                    size="sm"
+                >
+                    <Link href="/contact">Get Started</Link>
+                </Button>
+            </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
 
-        {/* Theme Toggle & Mobile Navigation Trigger */}
+        {/* Right side: Theme Toggle & Mobile Navigation Trigger */}
         <div className="flex items-center space-x-2 sm:space-x-4">
           <ThemeToggle />
-          {/* "Get Started" button for desktop REMOVED */}
-          {/* 
-          <Button asChild className="hidden md:inline-flex bg-brand-light text-brand-dark-text hover:bg-brand-pink hover:text-brand-light-text transition-colors duration-200 px-4 py-2 text-sm">
-            <Link href="/contact">Get Started</Link>
-          </Button> 
-          */}
           <div className="md:hidden">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -219,9 +273,9 @@ export default function Header() {
                         </DropdownMenuItem>
                         {navItem.menuItems.map((item) => (
                            <DropdownMenuItem key={item.title} asChild>
-                               <Link 
-                                  href={item.href}
-                                  className="font-inter w-full justify-start p-2.5 pl-5 text-sm rounded-md text-popover-foreground hover:text-brand-pink hover:bg-accent"
+                               <Link
+                                 href={item.href}
+                                 className="font-inter w-full justify-start p-2.5 pl-5 text-sm rounded-md text-popover-foreground hover:text-brand-pink hover:bg-accent"
                                 >
                                    {item.title}
                                </Link>
@@ -232,14 +286,15 @@ export default function Header() {
                   }
                   return null;
                 })}
-                {/* "Get Started" Button for Mobile REMOVED */}
-                {/*
-                <DropdownMenuItem asChild className="mt-3 p-1.5">
-                    <Button asChild className="w-full bg-brand-pink text-brand-light-text hover:bg-brand-pink/90">
+                <DropdownMenuItem asChild className="mt-2">
+                     <Button asChild
+                        variant="cta"
+                        className="w-full bg-brand-pink text-brand-light-text hover:bg-brand-pink/90"
+                        size="sm"
+                    >
                         <Link href="/contact">Get Started</Link>
                     </Button>
                 </DropdownMenuItem>
-                */}
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

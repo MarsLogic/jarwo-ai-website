@@ -31,13 +31,17 @@ export default {
 			// You could add a '600' for a slightly darker pink if needed for hovers or borders:
 			// '600': '#E0286A', // Example darker pink
 		  },
-		  'brand-light': '#FCFCFE', // For the light button default background
-  
-		  // These are general text colors we planned, useful for direct application if needed
-		  // though mostly they'll come from --foreground CSS variable.
-		  'brand-dark-text': '#030712',   // Our chosen dark text (Tailwind gray-950)
-		  'brand-light-text': '#F8FAFC', // Our chosen light text (Tailwind slate-50)
+          'brand-light': '#FCFCFE', // For the light button default background
+          'brand-dark-text': '#030712',   // Our chosen dark text (Tailwind gray-950)
+          'brand-light-text': '#F8FAFC', // Our chosen light text (Tailwind slate-50)
 		  // --- END CORE BRAND COLORS ---
+
+          // Custom blue shades
+          blue: { // Now a top-level color, like 'brand-pink'
+            '400': '#60A5FA', // Example: text-blue-400
+            '500': '#3B82F6', // Added a 500 shade for consistency
+            '700': '#1D4ED8', // Example: text-blue-700 (like #1E40AF)
+          },
   
 		  // Shadcn UI HSL placeholders (these will get their actual values from globals.css)
 		  background: 'hsl(var(--background))',
